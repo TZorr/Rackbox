@@ -27,7 +27,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 # 0.5.3: a Dark panel, as on Kitbox, switched under the wordmark and kept per user.
-project(Rackbox VERSION 0.5.3)
+project(Rackbox VERSION 0.6.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -85,9 +85,13 @@ set(RACKBOX_UI_SOURCES
     Source/UI/Knob.cpp
     Source/UI/BlockPanel.cpp
     Source/UI/ChoiceButtons.cpp
-    Source/UI/ChainDisplay.cpp)
+    Source/UI/ChainDisplay.cpp
+    Source/UI/PresetButton.cpp)
 
+# The preset file names the plugin by its JucePlugin_* codes, so it builds
+# only where juce_add_plugin's definitions are: here, not in RackboxCheck.
 target_sources(Rackbox PRIVATE
+    Source/Engine/AuPreset.cpp
     ${RACKBOX_CORE_SOURCES}
     ${RACKBOX_UI_SOURCES}
     Source/PluginProcessor.cpp
