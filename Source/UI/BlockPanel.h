@@ -2,10 +2,20 @@
 //  BlockPanel.h
 //  Rackbox
 //
-//  One effect block's section of the panel: a row of Type buttons over a row of
-//  Subtype buttons on the left, the three knobs (A, B, Mix) whose names follow
-//  the effect that is loaded on the right, and Bypass in the title row - with Sync beside it when the effect has a time or rate knob that can follow the host tempo -
-//  or, on a reverb, a PRE button in Sync's place that steps a tempo-synced pre-delay.
+//  One effect block's section of the panel (since 0.8.0 the Kitbox-Look
+//  mockup):
+//
+//      |B| [MOD][REVERB][DELAY][DIST]  | REVERB . PLATE           [PRE OFF] |
+//      |L| [PLATE ][ ROOM ][ HALL ]    |  (o) SIZE   (o) DAMP  |  (o) MIX   |
+//
+//  Down the left edge the block's name on an upright strip, which is its
+//  bypass: a click switches the block off and on, and the strip goes grey.
+//  Then a row of Type buttons over a row of Subtype buttons, and on the right
+//  the loaded effect's name over the three knobs (A, B, Mix) whose names
+//  follow it - with Sync at the right of the name when the effect has a time
+//  or rate knob that can follow the host tempo, or, on a reverb, a PRE button
+//  in Sync's place that steps a tempo-synced pre-delay. Everything takes the
+//  family's colour; a bypassed block's knobs fade back.
 //
 //  Two things here are not plain wiring.
 //
@@ -39,6 +49,7 @@ public:
     void refresh();
 
     void paint (juce::Graphics&) override;
+    void paintOverChildren (juce::Graphics&) override;
     void resized() override;
 
     /** What the knobs currently print; the checks read these instead of looking at pixels. */
@@ -57,6 +68,18 @@ public:
     juce::String bypassText()     { return bypass.getToggleState() ? "bypassed" : "active"; }
 
 private:
+    /** The upright strip down the left edge: the block's name and its bypass. */
+    class Power : public juce::Button
+    {
+    public:
+        explicit Power (int blockIndex);
+        Palette::ZoneId zone = Palette::ZoneId::none;
+        void paintButton (juce::Graphics&, bool highlighted, bool down) override;
+
+    private:
+        juce::String title;
+    };
+
     RackboxProcessor& processor;
     int block;
 
@@ -64,11 +87,13 @@ private:
 
     ChoiceButtons type, sub;
     Knob a { "A" }, b { "B" }, mix { "Mix" };
-    FlatToggle bypass { "Bypass" }, sync { "Sync" };
+    Power bypass;
+    FlatToggle sync { "Sync" };
     StepButton pre;   // a reverb's pre-delay, in Sync's place
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> bypassAttachment, syncAttachment;
 
     int shownCategory = -1, shownSubtype = -1;
-    juce::String shownTip;
+    juce::String shownTip, shownName;
+    juce::Rectangle<int> nameArea, mixDivider;
     bool shownBypass = false, shownSync = false;
 };
