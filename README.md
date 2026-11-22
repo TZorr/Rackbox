@@ -3,7 +3,7 @@
 A four-slot multi-effect for macOS - AU (aufx/Rbox/Tzor), VST3 and a standalone
 app, built with JUCE 9, in Kitbox's look.
 
-Family: [Kitbox](https://github.com/TZorr/Kitbox) (16-pad drum sampler), [Rackbox Plus](https://github.com/TZorr/RackboxPlus) (the same rack, eight knobs per effect), [FMBox](https://github.com/TZorr/FMBox) (eight-sound FM drum synth), [Chordbox](https://github.com/TZorr/Chordbox) (16-pad chord generator), [Transmute](https://github.com/TZorr/Transmute) (drum resynthesis), [Clearbox](https://github.com/TZorr/Clearbox) (target-curve dynamic EQ).
+Family: [Kitbox](https://github.com/TZorr/Kitbox) (16-pad drum sampler), [Rackbox Plus](https://github.com/TZorr/RackboxPlus) (the same rack, eight knobs per effect), [FMBox](https://github.com/TZorr/FMBox) (eight-sound FM drum synth), [Chordbox](https://github.com/TZorr/Chordbox) (16-pad chord generator), [Transmute](https://github.com/TZorr/Transmute) (drum resynthesis), [Tonbox](https://github.com/TZorr/Tonbox) (eight-channel drum synth), [Clearbox](https://github.com/TZorr/Clearbox) (target-curve dynamic EQ).
 
 <img src="screenshot.png" width="700" alt="Rackbox in Logic Pro">
 
